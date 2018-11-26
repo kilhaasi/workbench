@@ -7,7 +7,7 @@ done
 
 mkdir -pv /mnt/Video /crypt/output /crypt/input /Video
 
-gocryptfs -passfile /root/enc-pwd /mnt/G-Cache/Video/ /mnt/Video
+gocryptfs -passfile /root/.plexdrive/enc-pwd /mnt/G-Cache/Video/ /mnt/Video
 cp /mnt/G-Cache/Video/gocryptfs.conf /crypt/output
 gocryptfs -passfile /root/enc-pwd /crypt/output /crypt/input
 unionfs -o cow /crypt/input=RW:/mnt/Video=RO /Video

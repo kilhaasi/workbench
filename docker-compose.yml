@@ -9,7 +9,6 @@ services:
   - /Docker/workbench/cache:/cache
   - /Docker/Plex-Video/plexdrv-cfg:/root/.plexdrive
   - /root/.rclone.conf:/root/.rclone.conf
-  - /root/enc-pwd:/root/enc-pwd
   devices:
   - /dev/fuse
   #ports:
