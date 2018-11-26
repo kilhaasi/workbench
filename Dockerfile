@@ -1,7 +1,7 @@
 FROM ubuntu
 
 add root /
-RUN apt update && apt install -y openssh-server
+RUN apt update && apt install -y git fuse unionfs-fuse
 
 EXPOSE 22
 

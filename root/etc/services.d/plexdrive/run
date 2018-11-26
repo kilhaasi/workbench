@@ -1,0 +1,20 @@
+#!/usr/bin/with-contenv bash
+
+while [ ! -f "/root/.plexdrive/config.json" ] || [ ! -f "/root/.plexdrive/token.json" ]
+do
+	echo "Waiting for plexdrive configuration files ..."
+	sleep 30
+done
+
+umask 022
+
+IFS=" " read -r -a RUN_ARRAY <<< "$RUN_OPTS"
+
+#mount_command="plexdrive mount -c /config/ --cache-file=/cache/cache.bolt -v 3 --umask=0777 --chunk-size=100M --uid=$PUID --gid=$PGID -o allow_other /encrypted ${RUN_ARRAY[@]}"
+plexdrive mount -c /root/.plexdrive/ --cache-file=/cache/cache.bolt -v 3 --umask=0777 --chunk-size=100M -o allow_other /mnt/G-Cache ${RUN_ARRAY[@]}
+
+#echo "Executing => $mount_command"
+#mkdir /encrypted /decrypted
+#chmod 777 /encrypted /decrypted
+#exec \
+	s6-setuidgid abc $mount_command

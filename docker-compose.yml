@@ -1,0 +1,20 @@
+version: '2'
+services:
+ workbench:
+  build: ./
+  image: kilhaasi/workbench 
+  volumes:
+  - /Download:/Download
+  - /Transcode:/Transcode
+  - /Docker/workbench/cache:/cache
+  - /Docker/Plex-Video/plexdrv-cfg:/root/.plexdrive
+  - /root/.rclone.conf:/root/.rclone.conf
+  - /root/enc-pwd:/root/enc-pwd
+  devices:
+  - /dev/fuse
+  #ports:
+  #- 122:22
+  privileged: true
+  cap_add:
+  - MKNOD
+  - SYS_ADMIN
