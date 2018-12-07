@@ -1,3 +1,7 @@
 #!/usr/bin/with-contenv bash
 
 echo "PATH=$PATH:~/bin" >> /root/.profile
+mkdir -pv /root/.plexdrive
+cp -v /plexdrv/config.json /root/.plexdrive
+cp -v /plexdrv/token.json /root/.plexdrive
+cp -v /plexdrv/.rclone.conf /root
