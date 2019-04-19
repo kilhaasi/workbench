@@ -1,7 +1,7 @@
 FROM ubuntu
 
 add root /
-RUN apt update && apt install -y git fuse unionfs-fuse
+RUN apt update && apt install -y git fuse unionfs-fuse unrar
 
 EXPOSE 22
 
