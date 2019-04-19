@@ -2,7 +2,7 @@
 
 echo "PATH=$PATH:~/bin" >> /root/.profile
 mkdir -pv /root/.plexdrive
-cp -v /plexdrv/config.json /root/.plexdrive
-cp -v /plexdrv/token.json /root/.plexdrive
-cp -v /plexdrv/.rclone.conf /root
-cp -v /plexdrv/enc-pwd /root
+cp -v /etc/plexdrv/config.json /root/.plexdrive
+cp -v /etc/plexdrv/token.json /root/.plexdrive
+cp -v /etc/plexdrv/.rclone.conf /root
+cp -v /etc/plexdrv/enc-pwd /root
