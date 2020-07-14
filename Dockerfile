@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:xenial
 
 add root /
 RUN apt update && apt install -y git fuse unionfs-fuse unrar unzip curl

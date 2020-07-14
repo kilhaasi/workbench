@@ -1,8 +1,6 @@
 #!/usr/bin/with-contenv bash
 
 echo "PATH=$PATH:~/bin" >> /root/.profile
-mkdir -pv /root/.plexdrive
-cp -v /etc/plexdrv/config.json /root/.plexdrive
-cp -v /etc/plexdrv/token.json /root/.plexdrive
-cp -v /etc/plexdrv/.rclone.conf /root
+mkdir -pv  ~/.config/rclone
+cp -v /etc/plexdrv/rclone.conf ~/.config/rclone/rclone.conf
 cp -v /etc/plexdrv/enc-pwd /root
