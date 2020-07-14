@@ -1,17 +1,31 @@
 #!/usr/bin/with-contenv bash
-while [ ! -f "/mnt/G-Cache/Video/gocryptfs.conf" ]
+mkdir /mnt/plexdrv_encrypted
+rm -Rf ~/.cache
+rclone mount --daemon --allow-other --vfs-cache-mode minimal --no-modtime --write-back-cache gcache:/ /mnt/plexdrv_encrypted  --log-file /tmp/rclone.log --log-level DEBUG
+
+while [ ! -f "/mnt/plexdrv_encrypted/gocryptfs.conf" ]
 do
  echo "Waiting for gocryptfs.conf to appear..."
  sleep 1
 done
 
-mkdir -pv /mnt/Video /crypt/output /crypt/input /Video
+mkdir -pv /mnt/plexdrv_video /Video
+chmod 777 /mnt/plexdrv_video /Video
 
-gocryptfs -passfile /root/enc-pwd /mnt/G-Cache/Video/ /mnt/Video
-cp /mnt/G-Cache/Video/gocryptfs.conf /crypt/output
-gocryptfs -passfile /root/enc-pwd /crypt/output /crypt/input
-unionfs -o cow /crypt/input=RW:/mnt/Video=RO /Video
+s6-setuidgid plex gocryptfs -passfile /etc/plexdrv/enc-pwd /mnt/plexdrv_encrypted/ /mnt/plexdrv_video
 
+if [ -f /mnt/local_mirror/Video/gocryptfs.conf ]
+then
+ echo "local plexdrive mirror found"
+ mkdir -pv /mnt/mirror_decrypted
+ chmod 777 /mnt/mirror_decrypted /mnt/local_mirror
+ s6-setuidgid plex gocryptfs -passfile /etc/plexdrv/enc-pwd /mnt/local_mirror/Video /mnt/mirror_decrypted
+ s6-setuidgid plex unionfs-fuse /mnt/video:/mnt/mirror_decrypted=RO:/mnt/plexdrv_video=RO /Video
+else
+ s6-setuidgid plex unionfs-fuse /mnt/video:/mnt/plexdrv_video=RO /Video
+fi
+
+# Keep running so this script is recognised as running service
 until false
 do
  true

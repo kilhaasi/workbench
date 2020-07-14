@@ -2,13 +2,9 @@ version: '2'
 services:
  workbench:
   build: ./
-  image: kilhaasi/workbench 
+  image: kilhaasi/workbench
   volumes:
-  - /Download:/Download
-  - /Transcode:/Transcode
-  - /Docker/workbench/cache:/cache
-  - /Docker/Plex-Video/plexdrv-cfg:/root/.plexdrive
-  - /root/.rclone.conf:/root/.rclone.conf
+  - $HOME/Documents/plexdrv:/etc/plexdrv
   devices:
   - /dev/fuse
   #ports:
